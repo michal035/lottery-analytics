@@ -1,17 +1,22 @@
 import scrapy
+import pandas as pd
+
 
 
 class LottoSpider(scrapy.Spider):
+    
     name = "lotto_all"
 
-    #works fine with multipple - infull thing there might be some issues
+
     start_urls = [
         'https://www.lotto.pl/lotto/wyniki-i-wygrane/date,2020-06-06,10',
         'https://www.lotto.pl/lotto/wyniki-i-wygrane/date,2000-06-06,10'
     ]
 
+    results_df = pd.DataFrame({ 'date': [], 'lotto': [], 'lotto-plus': [], 'super-szansa': []})
     def parse(self, response):   
-                                 
+        global results_df
+
         the_div = response.xpath("//*[@id='__layout']/div/div[2]/div/div[3]/div/div[2]/div/div")
         the_divs = the_div.xpath("div")
         
@@ -38,6 +43,12 @@ class LottoSpider(scrapy.Spider):
                 
                 list_of_numbers.append(nu)
             
+
+            if len(list_of_numbers) != 0:
+                lotto_numbers = ' '.join(str(i) for i in list_of_numbers)
+            else:
+                lotto_numbers = 'NaN'
+
             print(list_of_numbers)
             print("\n")
 
@@ -54,6 +65,12 @@ class LottoSpider(scrapy.Spider):
                 
                 list_of_numbers.append(nu)
             
+
+            if len(list_of_numbers) != 0:
+                lotto_numbers_plus = ' '.join(str(i) for i in list_of_numbers)
+            else:
+                lotto_numbers_plus = "NaN"
+                
             print(f"{list_of_numbers}")
             print("\n")
         
@@ -69,11 +86,23 @@ class LottoSpider(scrapy.Spider):
                 
                 list_of_numbers.append(nu)
             
+
+            if len(list_of_numbers) != 0:
+                super_numbers = ' '.join(str(i) for i in list_of_numbers)
+            else:
+                super_numbers = "NaN"
+
             print(f"{list_of_numbers}")
             print("\n")
 
 
+            print(lotto_numbers)
+            df = pd.DataFrame({ 'date': time, 'lotto': lotto_numbers, 'lotto-plus': lotto_numbers_plus, 'super-szansa': super_numbers}, index=[0])
+            results_df = pd.merge(results_df,df)
+            print(results_df)
+
 
         print("ONE GONE")
+        print(results_df)
 
         
