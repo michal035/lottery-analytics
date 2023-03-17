@@ -7,13 +7,15 @@ class LottoSpider(scrapy.Spider):
     
     name = "lotto_all"
 
+    results_df = pd.DataFrame({ 'date': [], 'lotto': [], 'lotto-plus': [], 'super-szansa': []})
+    results_df.to_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv", index=None, sep=';', mode='w')
 
     start_urls = [
         'https://www.lotto.pl/lotto/wyniki-i-wygrane/date,2020-06-06,10',
         'https://www.lotto.pl/lotto/wyniki-i-wygrane/date,2000-06-06,10'
     ]
 
-    results_df = pd.DataFrame({ 'date': [], 'lotto': [], 'lotto-plus': [], 'super-szansa': []})
+    
     def parse(self, response):   
         global results_df
 
@@ -97,12 +99,13 @@ class LottoSpider(scrapy.Spider):
 
 
             print(lotto_numbers)
-            df = pd.DataFrame({ 'date': time, 'lotto': lotto_numbers, 'lotto-plus': lotto_numbers_plus, 'super-szansa': super_numbers}, index=[0])
-            results_df = pd.merge(results_df,df)
-            print(results_df)
+
+
+            time = (time.replace(" ","")).replace("\n","")
+            df = pd.DataFrame({ 'date': [time], 'lotto': [lotto_numbers], 'lotto-plus': [lotto_numbers_plus], 'super-szansa': [super_numbers]}, index=[0])
+            df.to_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv",index=None,header=None, sep=';', mode='a')
 
 
         print("ONE GONE")
-        print(results_df)
 
         
