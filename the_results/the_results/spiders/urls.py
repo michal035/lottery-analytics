@@ -19,3 +19,13 @@ def get_urls(starting_date,end_date):
     
     return urls
 
+
+
+"""
+
+for i in get_urls("2020-01-01","2023-01-01"):
+    print(i)
+
+print(len(get_urls("2020-01-01","2023-01-01")))
+
+"""

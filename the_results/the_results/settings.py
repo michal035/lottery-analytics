@@ -9,6 +9,8 @@
 
 BOT_NAME = 'the_results'
 
+USER_AGENT='just collecting stuff for project'
+
 SPIDER_MODULES = ['the_results.spiders']
 NEWSPIDER_MODULE = 'the_results.spiders'
 
