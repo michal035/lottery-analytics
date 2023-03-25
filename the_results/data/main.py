@@ -11,13 +11,10 @@ df = df[duplicated_date==False]
 
 
 
-
-
-
-def a(df):
+def main(df):
 
     #Just df to save evrything in one place 
-    df_results = pd.DataFrame()
+    df_results = pd.DataFrame({"number" : [], "occurences" : []})
 
     #there is 49 different numbers in the actuallt lottery 
     numbers = [ str(i+1) for i in range(49)]
@@ -37,9 +34,9 @@ def a(df):
 
             counter += len(temp_df)
 
-        df_result = pd.DataFrame({number : [counter]})
+        df_result = pd.DataFrame({"number" : [number], "occurences":[counter]})
 
-        df_results = pd.concat([df_results, df_result], axis=1)
+        df_results = pd.concat([df_results, df_result])
 
     return df_results
 
@@ -61,6 +58,6 @@ lotto2 = pd.DataFrame(lotto.lotto.str.split(' ').tolist(),columns = ['1','2','3'
 
 
 
-a(lotto2).to_csv('result.csv')
+main(lotto2).to_csv('result.csv')
 
 
