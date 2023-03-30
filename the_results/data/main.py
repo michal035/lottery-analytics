@@ -40,25 +40,72 @@ def main(df):
 
     return df_results
 
+
+from time import sleep
+
+def how_other_numbers_are_repeated(df):
+    
+    #Just df to save evrything in one place 
+    df_results = pd.DataFrame({"number" : [], "occurences" : []})
+
+    #there is 49 different numbers in the actuallt lottery 
+    numbers = [ str(i+1) for i in range(49)]
+    
+
+    # we need to loop through those numbers
+    col = list(df.columns)
+    
+    
+
+    for number in numbers:
+        counter = 0
+        dates_df = pd.DataFrame({"info": []})
         
+
+        for i in col:
+            
+            temp_df = df.loc[df[i] == number]
+            #print(temp_df)
+            #dates_df = pd.concat(dates_df,)
+
+            counter += len(temp_df)
+
+        df_result = pd.DataFrame({"number" : [number], "occurences":[counter]})
+
+        df_results = pd.concat([df_results, df_result])
+
+    return df_results
+
+
 
 overall_number_of_draws = len(df)
 lotto = (df["lotto"]).to_frame()
 
 
-lotto["numbers"] =  df["lotto"].str.split(" ")
-
-
 # each number is it's own collumn - I don't think this will be that useful
-lotto2 = pd.DataFrame(lotto.lotto.str.split(' ').tolist(),columns = ['1','2','3','4','5','6'])
+
+list_lotto = df.lotto.str.split(' ').tolist()
+
+for i,j in enumerate(df.date):
+
+    j = (j.split(","))[1]
+    list_lotto[i].append(j)
 
 
-#main(lotto2).to_csv('result.csv')
 
-df = main(lotto2)
+lotto2 = pd.DataFrame(list_lotto,columns = ["date",'1','2','3','4','5','6'])
+lotto3 = pd.DataFrame(lotto.lotto.str.split(' ').tolist(), columns = ['1', '2','3','4', '5', '6'])
+
+df = main(lotto3)
 sorted = df.sort_values(by=['occurences'], ascending=False)
 
+
+df2 = how_other_numbers_are_repeated(lotto2)
 
 # Just so i can call this function from another file and get current results 
 def data_for_further_processing():
     return overall_number_of_draws, sorted
+
+
+#print(o_df)
+
