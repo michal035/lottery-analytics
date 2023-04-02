@@ -1,9 +1,9 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
-from main import data_for_further_processing
+from main import get_main
 
 
-df = data_for_further_processing()[1]
+df = get_main()[1]
 
 
 df['number'] = df['number'].astype(str)

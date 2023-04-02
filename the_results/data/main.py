@@ -94,22 +94,26 @@ for i,j in enumerate(df.date):
     list_lotto[i].append(j)
 
 
-
 lotto2 = pd.DataFrame(list_lotto,columns = ['1','2','3','4','5','6',"date"])
 lotto3 = pd.DataFrame(lotto.lotto.str.split(' ').tolist(), columns = ['1', '2','3','4', '5', '6'])
 
-df = main(lotto3)
-sorted = df.sort_values(by=['occurences'], ascending=False)
 
-
-df2 = how_other_numbers_are_repeated(lotto2)[1]
 
 
 # Just so i can call this function from another file and get current results 
-def data_for_further_processing():
+def get_main():
+
+    df = main(lotto3)
+    sorted = df.sort_values(by=['occurences'], ascending=False)
+
     return overall_number_of_draws, sorted
 
-print(df2)
 
-#print(o_df)
+def get_dates():
+
+    df = how_other_numbers_are_repeated(lotto2)[1]
+    
+    return df
+
+
 
