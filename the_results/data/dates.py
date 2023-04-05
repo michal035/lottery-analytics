@@ -12,40 +12,27 @@ dates["dates"] = pd.to_datetime(dates["dates"])
 dates = dates.sort_values("dates")
 
 
+
 def counting():
 
-    o_year = 0
-    counter = 0
-    sum_od_days = 0
+    sum_of_days = 0
+    num_of_times_that_num_got_picked  = len(dates)
     previos_date = None
 
     for i in (dates["dates"].tolist()):
         
         if previos_date != None:
             num_of_days = (i - previos_date).days  
-            print(num_of_days)
+            
+            sum_of_days += num_of_days
+            #print(num_of_days)
         
         previos_date = i
        
-                
+    #print(f"Sum: {sum_of_days} avg time to get picked: {(sum_of_days/num_of_times_that_num_got_picked)}")
+
+    return sum_of_days, (sum_of_days/num_of_times_that_num_got_picked)
 
 
 counting()
 
-#print(dates.iloc[2,0])
-
-
-
-"""
-years_for_certain_num = pd.DataFrame()
-
-cur_y = ""
-
-for i in dates[0]:
-    if (temp_y := (i.split("."))[2]) != cur_y:
-        cur_y = temp_y
-       """ 
-
-"""for i in df["number"]:
-    print(df["info"][df["number"]==i])
-"""
