@@ -51,6 +51,6 @@ def get_dates_results():
      return result_df
 
     
-
+print(result_df)
 
 

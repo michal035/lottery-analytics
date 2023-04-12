@@ -16,12 +16,13 @@ sns.barplot(x='number', y='avrage_time_between', data=sub_df1, palette='Blues_d'
 plt.title("On avarge how long it takes for number to be picked again")  
 plt.xlabel("number") 
 plt.ylabel("Number of days")  
-plt.show()
 
+# plt.show()
+plt.savefig('the_results/graphs/average_number_od_days.png')
 
 #just some basic graph showing how many times each number occured 
-"""df = get_main()[1]
-
+df = get_main()[1]
+plt.clf()
 
 df['number'] = df['number'].astype(str)
 df = df.sort_values(by='occurences', ascending=False)
@@ -35,8 +36,8 @@ plt.barh(df['number'], df['occurences'], color=colors)
 plt.xlabel('number of occurences')
 plt.ylabel('Numbers')
 plt.title('How many times each number got pick')
-"""
+
 
 #plt.show()
-
+plt.savefig('the_results/graphs/basic_graph_number_of_picks.png')
 
