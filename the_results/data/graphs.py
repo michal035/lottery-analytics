@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from main import get_main
 from dates import get_dates_results
+from datetime import datetime
 
 
 
@@ -40,4 +41,18 @@ plt.title('How many times each number got pick')
 
 #plt.show()
 plt.savefig('the_results/graphs/basic_graph_number_of_picks.png')
+plt.clf()
 
+
+
+sub_df1 = df2[["number","days_since_the_last_draw"]]
+
+sns.set_style('whitegrid')
+sns.despine()
+sns.barplot(x='number', y='days_since_the_last_draw', data=sub_df1, palette='Blues_d') 
+plt.title("On avarge how long it takes for number to be picked again")  
+plt.xlabel("number") 
+plt.ylabel("Number of days")  
+
+plt.show()
+plt.savefig('the_results/graphs/days_since_last_pick.png')

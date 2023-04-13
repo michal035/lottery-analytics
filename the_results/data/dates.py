@@ -1,11 +1,14 @@
 import pandas as pd 
 from main import get_dates
 from datetime import datetime
+import pytz
 
 
 df = get_dates()
 result_df = pd.DataFrame({"number":[], "avrage_time_between":[], "last_draw": []})
 
+
+now = datetime.now(pytz.UTC)
 
 def counting(dates):
 
@@ -38,12 +41,14 @@ for i in list(df["number"]):
     dates = dates.sort_values("dates")
 
     res = counting(dates)
-    print(f"Number: {i} {res}")
+    #print(f"Number: {i} {res}")
 
+    prev_date = res[2]
     last_draw = res[2].strftime('%Y-%m-%d')
     avg = round(res[1],2)
+    time_since_last_draw = (now - prev_date).days
 
-    res_df = pd.DataFrame({"number":[i], "avrage_time_between":[avg], "last_draw": [last_draw]})
+    res_df = pd.DataFrame({"number":[i], "avrage_time_between":[avg], "last_draw": [last_draw], "days_since_the_last_draw": [time_since_last_draw]})
     result_df = pd.concat([result_df,res_df])
 
 
