@@ -11,7 +11,7 @@ class LottoSpider2(scrapy.Spider):
     results_df = pd.DataFrame({ 'date': [], 'lotto': [], 'lotto-plus': [], 'super-szansa': []})
     results_df.to_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv", index=None, sep=';', mode='w')
 
-    start_urls = urls.get_urls("1980-01-01","2023-01-01")
+    start_urls = urls.get_urls("1980-01-01","2023-04-015")
     #print(start_urls)
     
 

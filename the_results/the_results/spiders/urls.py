@@ -20,3 +20,4 @@ def get_urls(starting_date,end_date):
     return urls
 
 
+print(get_urls("1980-01-01","2023-04-15"))

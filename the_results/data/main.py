@@ -2,7 +2,12 @@ import pandas as pd
 import numpy
 
 
-df = pd.read_csv("the_results/re.csv",sep=';', dtype=str)
+#When i try to call module from .ipynb it shows it can't find the .csv file -> not the first time this had happened
+# -> that's why full path is here 
+
+#df = pd.read_csv("the_results/re.csv",sep=';', dtype=str)
+df = pd.read_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv",sep=';', dtype=str)
+
 df =  df[df['date'].isnull() == False]
 
 duplicated_date = df.duplicated()
