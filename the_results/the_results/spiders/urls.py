@@ -7,7 +7,7 @@ def get_urls(starting_date,end_date):
     y_e = int((end_date.split("-"))[0])
 
 
-    years = [i + y_s for i in range(y_e - y_s)]
+    years = [i + y_s for i in (range((y_e - y_s)+1))]
     urls = []
 
     for year in years:
@@ -20,4 +20,4 @@ def get_urls(starting_date,end_date):
     return urls
 
 
-print(get_urls("1980-01-01","2023-04-15"))
+#print(get_urls("1980-01-01","2023-04-15"))
