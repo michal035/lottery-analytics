@@ -30,7 +30,8 @@ class LottoSpider(scrapy.Spider):
         #this returns urls from that range of dates 
         self.start_urls = urls.get_urls(self.arg1,self.arg2)
 
-        print(f"URLS! {self.start_urls}")
+        #just for troubleshooting 
+        #print(f"URLS! {self.start_urls}")
     
 
     def start_requests(self):
