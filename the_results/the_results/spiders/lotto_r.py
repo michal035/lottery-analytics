@@ -9,9 +9,9 @@ class LottoSpider2(scrapy.Spider):
     name = "lotto_r"
 
     results_df = pd.DataFrame({ 'date': [], 'lotto': [], 'lotto-plus': [], 'super-szansa': []})
-    results_df.to_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv", index=None, sep=';', mode='w')
+    results_df.to_csv("the_results/re.csv", index=None, sep=';', mode='w')
 
-    start_urls = urls.get_urls("2022-01-01","2023-04-015")
+    start_urls = urls.get_urls("2020-01-01","2023-04-15")
     #print(start_urls)
     
 
@@ -132,8 +132,8 @@ class LottoSpider2(scrapy.Spider):
                 time = "NaN"
 
             df = pd.DataFrame({ 'date': [time], 'lotto': [lotto_numbers], 'lotto-plus': [lotto_numbers_plus], 'super-szansa': [super_numbers]}, index=[0])
-            df.to_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv",index=None,header=None, sep=';', mode='a')
+            df.to_csv("the_results/re.csv",index=None,header=None, sep=';', mode='a')
 
-        #print("ONE GONE")
+       
 
         

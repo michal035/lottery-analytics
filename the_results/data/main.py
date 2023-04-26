@@ -2,18 +2,13 @@ import pandas as pd
 import numpy
 
 
-#When i try to call module from .ipynb it shows it can't find the .csv file -> not the first time this had happened
-# -> that's why full path is here 
-
-#df = pd.read_csv("the_results/re.csv",sep=';', dtype=str)
-df = pd.read_csv("/home/michal/Documents/Python/the scraping/lottery/the_results/re.csv",sep=';', dtype=str)
+df = pd.read_csv("the_results/re.csv",sep=';', dtype=str)
 
 df =  df[df['date'].isnull() == False]
 
 duplicated_date = df.duplicated()
 df = df[duplicated_date==False]
 
-#df.to_csv("the_results/re2.csv")
 
 
 def main(df):
@@ -25,7 +20,7 @@ def main(df):
     numbers = [ str(i+1) for i in range(49)]
     
 
-    # we need to loop through those numbers
+    # we need to loop through those numbers and count occurences of each one -> I guess there might be smarter way to do this 
     for number in numbers:
         counter = 0
         for i in df.columns:
@@ -46,18 +41,16 @@ def main(df):
     return df_results
 
 
-from time import sleep
 
 def how_other_numbers_are_repeated(df):
     
-    #Just df to save evrything in one place 
     df_results = pd.DataFrame({"number" : [], "occurences" : []})
     dates_df = pd.DataFrame({"number": [],"info": []})
 
     #there is 49 different numbers in the actuallt lottery 
     numbers = [ str(i+1) for i in range(49)]
     
-    # we need to loop through those numbers
+
     col = list(df.columns)
     
 
@@ -90,7 +83,6 @@ overall_number_of_draws = len(df)
 lotto = (df["lotto"]).to_frame()
 
 
-# each number is it's own collumn - I don't think this will be that useful
 list_lotto = df.lotto.str.split(' ').tolist()
 
 for i,j in enumerate(df.date):
