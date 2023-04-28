@@ -9,11 +9,11 @@ from datetime import datetime
 df2 = get_dates_results()
 
 
-sub_df1 = df2[["number","avrage_time_between"]]
+sub_df1 = df2[["number","average_time_between"]]
 
 sns.set_style("darkgrid")  
-sns.barplot(x='number', y='avrage_time_between', data=sub_df1, palette='Blues_d') 
-plt.title("On avarge how long it takes for number to be picked again")  
+sns.barplot(x='number', y='average_time_between', data=sub_df1, palette='Blues_d') 
+plt.title("On average how long it takes for number to be picked again")  
 plt.xlabel("number") 
 plt.ylabel("Number of days")  
 
