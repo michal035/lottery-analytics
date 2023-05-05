@@ -8,6 +8,7 @@ from datetime import datetime
 
 df2 = get_dates_results()
 
+print(df2.head())
 
 sub_df1 = df2[["number","average_time_between"]]
 

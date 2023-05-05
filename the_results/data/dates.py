@@ -5,7 +5,7 @@ import pytz
 
 
 df = get_dates()
-result_df = pd.DataFrame({"number":[], "avrage_time_between":[], "last_draw": []})
+result_df = pd.DataFrame({"number":[], "average_time_between":[], "last_draw": []})
 
 
 now = datetime.now(pytz.UTC)
@@ -36,19 +36,35 @@ for i in list(df["number"]):
 
     dates = df[df["number"] == i]
     dates = pd.DataFrame(((dates["info"].str.split(' ')).to_list())[0],columns = ["dates"])
-    dates["dates"] = pd.to_datetime(dates["dates"], infer_datetime_format=True, utc=True, errors='ignore')
+    dates["dates"] = pd.to_datetime(dates["dates"], infer_datetime_format=True, utc=True, errors='ignore', dayfirst=True)
 
+    print(dates)
     dates = dates.sort_values("dates")
 
+    print("V1")
+    print(dates)
     res = counting(dates)
+    print("V2")
+    print(res)
     #print(f"Number: {i} {res}")
 
     prev_date = res[2]
+
+    
+    new_prev_date_string = prev_date.strftime('%d-%m-%Y')
+    prev_date = pytz.utc.localize(pd.to_datetime(new_prev_date_string, dayfirst=True))
+
+
     last_draw = res[2].strftime('%Y-%m-%d')
     avg = round(res[1],2)
     time_since_last_draw = (now - prev_date).days
+    if time_since_last_draw < 0:
+         print("here")
+         print(time_since_last_draw)
+         print(f"{now} {prev_date}")
+         print(type(prev_date))
 
-    res_df = pd.DataFrame({"number":[i], "avrage_time_between":[avg], "last_draw": [last_draw], "days_since_the_last_draw": [time_since_last_draw]})
+    res_df = pd.DataFrame({"number":[i], "average_time_between":[avg], "last_draw": [last_draw], "days_since_the_last_draw": [time_since_last_draw]})
     result_df = pd.concat([result_df,res_df])
 
 
