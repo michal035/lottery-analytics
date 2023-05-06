@@ -18,7 +18,7 @@ plt.title("On average how long it takes for number to be picked again")
 plt.xlabel("number") 
 plt.ylabel("Number of days")  
 
-
+#plt.xticks(rotation=90)
 plt.savefig('the_results/graphs/average_number_od_days.png')
 #plt.show()
 plt.clf()
@@ -37,7 +37,7 @@ plt.xlabel('number of occurences')
 plt.ylabel('Numbers')
 plt.title('How many times each number got pick')
 
-
+#plt.xticks(rotation=90)
 plt.savefig('the_results/graphs/basic_graph_number_of_picks.png')
 #plt.show()
 plt.clf()
@@ -48,11 +48,31 @@ sub_df1 = df2[["number","days_since_the_last_draw"]]
 
 sns.set_style('whitegrid')
 sns.despine()
-sns.barplot(x='number', y='days_since_the_last_draw', data=sub_df1, palette='twilight') 
-plt.title("The amount of days that have passed since a certain number was picked")  
-plt.xlabel("number") 
-plt.ylabel("Number of days")  
+ax = sns.barplot(x='number', y='days_since_the_last_draw', data=sub_df1, palette='twilight', label="")
+plt.title("The amount of days that have passed since a certain number was picked")
+plt.xlabel("numbers",labelpad=16)
+plt.ylabel("Number of days")
+
+
+
+# This is basically so that numbers don't go on top of each other 
+offset = -16  
+for i, label in enumerate(ax.get_xticklabels()):
+   
+    x = i
+    y = offset
+    ax.text(x, y, label.get_text(), ha='center', va='bottom', fontsize=10)
+    
+    offset = - 16
+    if i%2 == 1:
+        d = 0
+    else:
+        d = 6
+
+    offset += d
+    
+    
+ax.set_xticklabels([])
 
 
 plt.savefig('the_results/graphs/days_since_last_pick.png')
-#plt.show()
